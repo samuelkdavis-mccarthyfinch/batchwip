@@ -1,0 +1,1 @@
+local "visibility_timeout_seconds" = 900 # sqs needs to match lambda timeout

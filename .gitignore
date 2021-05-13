@@ -1,0 +1,4 @@
+myfile.zip
+terraform.tfstate
+terraform.tfstate.backup
+.terraform/
