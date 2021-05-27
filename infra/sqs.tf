@@ -1,6 +1,6 @@
 resource "aws_sqs_queue" "sqs" {
   name_prefix                = var.namespace
-  delay_seconds              = 90
+  # delay_seconds              = 90
   visibility_timeout_seconds = 900 # default is 30, "Queue visibility timeout: 30 seconds is less than Function timeout: 900 seconds
   max_message_size           = 2048
   message_retention_seconds  = 86400

@@ -43,20 +43,28 @@ resource "aws_iam_role_policy_attachment" "lambda_policy_attachment"{
   policy_arn = aws_iam_policy.lambda_policy.arn
 }
 
+data "aws_iam_policy_document" "lambda_logs_policy_document" {
+  statement {
+    actions = [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+    ]
+
+    resources = [
+      "${module.cloudwatch.log_group_arn}:*"
+    ]
+  }
+}
+
+resource "aws_iam_role_policy" "lambda_logs" {
+  role = aws_iam_role.lambda_role.name
+  name = "${var.namespace}logs"
+
+  policy = data.aws_iam_policy_document.lambda_logs_policy_document.json
+}
 
 ### --- sqs permissions ---
-# may be needed instead of giving lambda sqs permissions. I can't find anything online around this.
-# resource "aws_lambda_permission" "with_sns" {
-#   statement_id  = "AllowExecutionFromSNS"
-#   action        = "lambda:InvokeFunction"
-#   function_name = aws_lambda_function.func.function_name
-#   principal     = "sns.amazonaws.com"
-#   source_arn    = aws_sns_topic.default.arn
-# }
 
-# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription
-
-# SNS permissions are weird, may need to add additional permissions for the sqs/sns calls
 data "aws_iam_policy_document" "sqs_policy" {
   statement {
     effect = "Allow"
@@ -76,10 +84,8 @@ data "aws_iam_policy_document" "sqs_policy" {
   }
 }
 
-
 ### --- sns permissions ---
 
-# todo where to attach & how to attach
 resource "aws_sns_topic_policy" "sns_topic_policy" {
   arn = aws_sns_topic.sns.arn
 

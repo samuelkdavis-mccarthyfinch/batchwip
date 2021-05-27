@@ -2,3 +2,5 @@ myfile.zip
 terraform.tfstate
 terraform.tfstate.backup
 .terraform/
+snsNotifier/node_modules/
+index.zip

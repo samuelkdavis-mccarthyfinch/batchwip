@@ -1,4 +1,4 @@
 Todo:
 
 Add sqs dead letter queue
-allow lambda to log
+Set up iam role for failed deliveries

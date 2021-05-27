@@ -1,4 +1,5 @@
 namespace="testsamd"
-lambda_file_name="./myfile.zip"
+lambda_file_name="./index.zip"
 lambda_handler="index.handler"
 environment_name="dev"
+logging_lambda_arn="arn:aws:lambda:us-east-1:750265728108:function:AWS-ELK-CentralizedLogging-LogStreamer-39KH8I0OE96N"

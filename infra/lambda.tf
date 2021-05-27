@@ -1,6 +1,6 @@
 resource "aws_lambda_function" "lambda" {
   filename      = var.lambda_file_name # use filename instead of s3_bucket & s3_key "AWS region where you are creating the Lambda function."
-  function_name = var.namespace
+  function_name = local.lambda_function_name
   role          = aws_iam_role.lambda_role.arn
   handler       = var.lambda_handler
 
@@ -41,3 +41,9 @@ resource "aws_lambda_event_source_mapping" "lambda_event_source_mapping" {
   # InvalidParameterValueException: MaximumRetryAttempts isn't supported for this event source type
 }
 # "Queue visibility timeout: 30 seconds is less than Function timeout: 900 seconds
+
+module "cloudwatch" {
+  source             = "./cloudwatch"
+  logging_lambda_arn = "${var.logging_lambda_arn}"
+  lambda_name        = "${local.lambda_function_name}"
+}
