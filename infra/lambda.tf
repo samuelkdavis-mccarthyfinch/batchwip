@@ -10,7 +10,8 @@ resource "aws_lambda_function" "lambda" {
   runtime = "nodejs14.x"
   publish = false # published versions are only needed for provisioned concurrency
 
-  # reserved concurrency
+  # reserved concurrency is maximum count of lambdas to run (throttle). 
+  # Provisioned concurrency is the minimum count of lambdas to run (keep warm)
   reserved_concurrent_executions = 1
 
   # vpc_config = {

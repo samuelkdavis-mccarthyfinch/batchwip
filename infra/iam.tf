@@ -1,8 +1,8 @@
 ### --- lambda permissions ---
 resource "aws_iam_role" "lambda_role" {
-  name_prefix = "${var.namespace}lambda"
+  name_prefix           = "${var.namespace}lambda"
   force_detach_policies = true
-  assume_role_policy = data.aws_iam_policy_document.lambda_assume_role_policy.json
+  assume_role_policy    = data.aws_iam_policy_document.lambda_assume_role_policy.json
 }
 
 data "aws_iam_policy_document" "lambda_assume_role_policy" {
@@ -35,11 +35,11 @@ data "aws_iam_policy_document" "lambda_policy_document" {
 resource "aws_iam_policy" "lambda_policy" {
   name_prefix = "${var.namespace}lambda"
   description = "Allow lambda to poll SQS"
-  policy = data.aws_iam_policy_document.lambda_policy_document.json
+  policy      = data.aws_iam_policy_document.lambda_policy_document.json
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_policy_attachment"{
-  role = aws_iam_role.lambda_role.name
+resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
+  role       = aws_iam_role.lambda_role.name
   policy_arn = aws_iam_policy.lambda_policy.arn
 }
 
@@ -109,11 +109,11 @@ data "aws_iam_policy_document" "sns_topic_policy" {
     effect = "Allow"
 
     principals {
-      type        = "AWS"
+      type = "AWS"
       identifiers = [
         #"sns.amazonaws.com" InvalidParameter: Invalid parameter: Policy Error: PrincipalNotFound
         "*"
-        ]
+      ]
     }
 
     resources = [
