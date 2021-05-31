@@ -1,9 +1,9 @@
 variable "logging_lambda_arn" {
-    type = "string"
+  type = string
 }
 
 
 variable "lambda_name" {
-    type = "string"
-    //eg. dev8author-doc-ingest8step-check-cpl
+  type = string
+  //eg. dev8author-doc-ingest8step-check-cpl
 }
